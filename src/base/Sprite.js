@@ -1,6 +1,10 @@
+import DataStore from './DataStroe.js'
+
 export default class Sprite {
   constructor(props = {}) {
-    this.ctx = null
+    this.dataStore = DataStore.getInstance()
+    this.ctx = this.dataStore.ctx
+    
     this.img = null
     this.srcX = 0
     this.srcY = 0
@@ -10,22 +14,28 @@ export default class Sprite {
     this.y = 0
     this.width = 0
     this.height = 0
-
+    
     Object.assign(this, props)
-    console.log(this);
   }
 
-  draw() {
+  draw(props = {}) {
+    const types = Object.assign({}, this, props)
+    const {img, srcX, srcY, srcW, srcH, x, y, width, height} = types
+    
     this.ctx.drawImage(
-      this.img,
-      this.srcX,
-      this.srcY,
-      this.srcW,
-      this.srcH,
-      this.x,
-      this.y,
-      this.width,
-      this.height,
+      img,
+      srcX,
+      srcY,
+      srcW,
+      srcH,
+      x,
+      y,
+      width,
+      height,
     )
+  }
+  
+  static getImage(key) {
+    return DataStore.getInstance().res.get(key)
   }
 }

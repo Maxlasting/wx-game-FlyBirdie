@@ -1,6 +1,8 @@
+import DataStore from './base/DataStroe.js'
 import Director from './Director.js'
 import ResourceLoader from './base/ResourceLoader.js'
 import Background from './runtime/Background.js'
+import Land from './runtime/Land.js'
 
 export default class Main {
   constructor() {
@@ -9,14 +11,25 @@ export default class Main {
 
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
+    
+    this.dataStore = DataStore.getInstance()
 
     const loader = ResourceLoader.create()
 
-    loader.onLoad((map) => this.onFirstResourceLoaded(map))
+    loader.onLoad((res) => this.onFirstResourceLoaded(res))
   }
 
-  onFirstResourceLoaded(map) {
-    let background = new Background(this.ctx, map.get('background'))
-    background.draw()
+  onFirstResourceLoaded(res) {
+    this.dataStore.ctx = this.ctx
+    this.dataStore.res = res
+    this.init()
+  }
+  
+  init() {
+    this.dataStore
+      .put('background', Background)
+      .put('land', Land)
+    
+    Director.getInstance().run()
   }
 }

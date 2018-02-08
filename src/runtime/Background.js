@@ -1,9 +1,9 @@
 import Sprite from '../base/Sprite.js'
 
 export default class Background extends Sprite {
-  constructor(ctx, img) {
+  constructor() {
+    const img = Sprite.getImage('background')
     super({
-      ctx,
       img,
       srcX: 0,
       srcY: 0,
