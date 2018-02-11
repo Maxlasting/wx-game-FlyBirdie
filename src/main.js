@@ -13,6 +13,7 @@ export default class Main {
     this.canvas.height = window.innerHeight
     
     this.dataStore = DataStore.getInstance()
+    this.director = Director.getInstance()
 
     const loader = ResourceLoader.create()
 
@@ -29,7 +30,11 @@ export default class Main {
     this.dataStore
       .put('background', Background)
       .put('land', Land)
+      .put('pencils', [])
     
-    Director.getInstance().run()
+    this.director.isGameOver = false
+    
+    this.director.createPencil()
+    this.director.run()
   }
 }
