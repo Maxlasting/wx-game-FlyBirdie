@@ -42,6 +42,8 @@ export default class Director {
     
     this.dataStore.get('land').draw()
     
+    this.dataStore.get('birds').draw()
+    
     const t = requestAnimationFrame(() => this.run())
     this.dataStore.put('timer', t)
   }

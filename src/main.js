@@ -3,6 +3,7 @@ import Director from './Director.js'
 import ResourceLoader from './base/ResourceLoader.js'
 import Background from './runtime/Background.js'
 import Land from './runtime/Land.js'
+import Birds from './player/Birds.js'
 
 export default class Main {
   constructor() {
@@ -31,6 +32,7 @@ export default class Main {
       .put('background', Background)
       .put('land', Land)
       .put('pencils', [])
+      .put('birds', Birds)
     
     this.director.isGameOver = false
     

@@ -21,7 +21,7 @@ export default class Sprite {
   draw(props = {}) {
     const types = Object.assign({}, this, props)
     const {img, srcX, srcY, srcW, srcH, x, y, width, height} = types
-    
+
     this.ctx.drawImage(
       img,
       srcX,
