@@ -30,12 +30,10 @@ export default class Birds extends Sprite {
     this.birdsX = [this.birdX, this.birdX, this.birdX]
     this.birdsY = [this.birdY, this.birdY, this.birdY]
     
-    this.y = [this.birdY, this.birdY, this.birdY]
+    this.y = this.birdY
     
     this.birdWidth = 34
     this.birdHeight = 24
-    // this.birdsWidth = [this.birdWidth, this.birdWidth, this.birdWidth]
-    // this.birdsHeight = [this.birdHeight, this.birdHeight, this.birdHeight]
     
     this.index = 0
     this.count = 0
@@ -52,9 +50,11 @@ export default class Birds extends Sprite {
     const offsetUp = 30
     const offsetY = (g * this.time * (this.time - offsetUp)) / 2
     
-    for (let i=0; i<3; i++) {
-      this.birdsY[i] = this.y[i] + offsetY
-    }
+    // for (let i=0; i<3; i++) {
+    //   this.birdsY[i] = this.y[i] + offsetY
+    // }
+    
+    this.birdY = this.y + offsetY
     
     this.time++
     
@@ -65,7 +65,7 @@ export default class Birds extends Sprite {
       srcW: this.birdWidth,
       srcH: this.birdHeight,
       x: this.birdX,
-      y: this.birdsY[this.index],
+      y: this.birdY,
       width: this.birdWidth,
       height: this.birdHeight
     })

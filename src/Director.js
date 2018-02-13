@@ -17,13 +17,50 @@ export default class Director {
   }
   
   birdsEvent() {
-    for (let i=0; i<3; i++) {
-      this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i]
-    }
+    // for (let i=0; i<3; i++) {
+    //   this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i]
+    // }
+    this.dataStore.get('birds').y = this.dataStore.get('birds').birdY
     this.dataStore.get('birds').time = 0
   }
   
+  check() {
+    const birds = this.dataStore.get('birds')
+    const land = this.dataStore.get('land')
+    
+    if (birds.birdY + birds.birdHeight >= land.y) {
+      this.isGameOver = true
+      console.log('游戏结束')
+    }
+    
+    const pencils = this.dataStore.get('pencils')
+    
+    const birdRect = {
+      left: birds.birdX,
+      top: birds.birdY,
+      right: birds.birdX + birds.birdWidth,
+      bottom: birds.birdY + birds.birdHeight
+    }
+    
+    for (let i=0; i<pencils.length; i++) {
+      const pencilRect = {
+        left: pencils[i].x,
+        top: pencils[i].y,
+        right: pencils[i].x + pencils[i].width,
+        bottom: pencils[i].y + pencils[i].height
+      }
+      
+      if (Director.checkHit(birdRect, pencilRect)) {
+        this.isGameOver = true
+        console.log('游戏结束')
+        return
+      }
+    }
+  }
+  
   run() {
+    this.check()
+    
     if (this.isGameOver) {
       cancelAnimationFrame(this.dataStore.get('timer'))
       this.dataStore.destroy()
@@ -60,5 +97,9 @@ export default class Director {
       Director.instance = new Director()
     }
     return Director.instance
+  }
+  
+  static checkHit(birds, pencil) {
+    return birds.right > pencil.left && birds.left < pencil.right && birds.top < pencil.bottom && birds.bottom > pencil.top
   }
 }
