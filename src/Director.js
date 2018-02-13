@@ -16,6 +16,13 @@ export default class Director {
     this.dataStore.get('pencils').push(new DownPencil(top))
   }
   
+  birdsEvent() {
+    for (let i=0; i<3; i++) {
+      this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i]
+    }
+    this.dataStore.get('birds').time = 0
+  }
+  
   run() {
     if (this.isGameOver) {
       cancelAnimationFrame(this.dataStore.get('timer'))

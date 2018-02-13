@@ -28,15 +28,45 @@ export default class Main {
   }
   
   init() {
+    this.director.isGameOver = false
+    
     this.dataStore
       .put('background', Background)
       .put('land', Land)
       .put('pencils', [])
       .put('birds', Birds)
     
-    this.director.isGameOver = false
+    this.registerEvent()
     
     this.director.createPencil()
     this.director.run()
   }
+  
+  registerEvent() {
+    this.canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault()
+      if (this.director.isGameOver) {
+        this.init()
+      } else {
+        this.director.birdsEvent()
+      }
+    })
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
