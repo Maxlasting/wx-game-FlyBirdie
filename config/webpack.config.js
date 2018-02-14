@@ -18,7 +18,7 @@ const config = {
   output: {
     path: path.join(__dirname, '../dist'),
     filename: '[name].[hash].js',
-    publicPath: '/'
+    publicPath: '/game/flybird/'
   },
   module: {
     rules: [
