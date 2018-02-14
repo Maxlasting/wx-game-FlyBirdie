@@ -56,12 +56,20 @@ export default class Director {
         return
       }
     }
+    
+    const Score = this.dataStore.get('score')
+    
+    if (birds.birdX > pencils[0].x + pencils[0].width && Score.addable) {
+      Score.score ++
+      Score.addable = false
+    }
   }
   
   run() {
     this.check()
     
     if (this.isGameOver) {
+      this.dataStore.get('startButton').draw()
       cancelAnimationFrame(this.dataStore.get('timer'))
       this.dataStore.destroy()
       return
@@ -74,6 +82,7 @@ export default class Director {
     if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
       pencils.shift()
       pencils.shift()
+      this.dataStore.get('score').addable = true
     }
     
     if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
@@ -85,7 +94,7 @@ export default class Director {
     })
     
     this.dataStore.get('land').draw()
-    
+    this.dataStore.get('score').draw()
     this.dataStore.get('birds').draw()
     
     const t = requestAnimationFrame(() => this.run())

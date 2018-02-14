@@ -46,13 +46,9 @@ export default class Birds extends Sprite {
     this.count = this.count < 2 ? this.count + speed : 0
     this.index = Math.floor(this.count)
     
-    const g = 0.98 / 2.4
-    const offsetUp = 30
+    const g = 0.98 / 3
+    const offsetUp = 28
     const offsetY = (g * this.time * (this.time - offsetUp)) / 2
-    
-    // for (let i=0; i<3; i++) {
-    //   this.birdsY[i] = this.y[i] + offsetY
-    // }
     
     this.birdY = this.y + offsetY
     

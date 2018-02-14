@@ -4,6 +4,8 @@ import ResourceLoader from './base/ResourceLoader.js'
 import Background from './runtime/Background.js'
 import Land from './runtime/Land.js'
 import Birds from './player/Birds.js'
+import Start from './player/Start.js'
+import Score from './player/Score.js'
 
 export default class Main {
   constructor() {
@@ -33,8 +35,10 @@ export default class Main {
     this.dataStore
       .put('background', Background)
       .put('land', Land)
+      .put('score', Score)
       .put('pencils', [])
       .put('birds', Birds)
+      .put('startButton', Start)
     
     this.registerEvent()
     
