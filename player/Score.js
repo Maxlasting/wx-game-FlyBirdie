@@ -13,12 +13,13 @@ export default  class Score {
   draw() {
     this.ctx.save()
     this.ctx.font = '25px Arial'
+    this.ctx.fillStyle = '#000'
     this.ctx.textAlign = 'center'
     this.ctx.textBaseline = 'middle'
     this.ctx.fillText(
       this.score,
-      window.innerWidth / 2,
-      window.innerHeight / 18,
+      DataStore.getInstance().canvas.width / 2,
+      DataStore.getInstance().canvas.height / 17,
       1000
     )
     this.ctx.restore()

@@ -9,11 +9,8 @@ import Score from './player/Score.js'
 
 export default class Main {
   constructor() {
-    this.canvas = document.getElementById('canvas')
+    this.canvas = wx.createCanvas()
     this.ctx = this.canvas.getContext('2d')
-
-    this.canvas.width = window.innerWidth
-    this.canvas.height = window.innerHeight
     
     this.dataStore = DataStore.getInstance()
     this.director = Director.getInstance()
@@ -26,12 +23,19 @@ export default class Main {
   onFirstResourceLoaded(res) {
     this.dataStore.ctx = this.ctx
     this.dataStore.res = res
+    this.dataStore.canvas= this.canvas
     this.init()
+  }
+
+  createBgAudio() {
+    const bgm = wx.createInnerAudioContext()
+    bgm.autoplay = true
+    bgm.loop = true
+    bgm.src = 'assets/audio/bgm.mp3'
   }
   
   init() {
     this.director.isGameOver = false
-    
     this.dataStore
       .put('background', Background)
       .put('land', Land)
@@ -39,6 +43,8 @@ export default class Main {
       .put('pencils', [])
       .put('birds', Birds)
       .put('startButton', Start)
+
+    this.createBgAudio()
     
     this.registerEvent()
     
@@ -47,8 +53,7 @@ export default class Main {
   }
   
   registerEvent() {
-    this.canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault()
+    wx.onTouchStart(() => {
       if (this.director.isGameOver) {
         this.init()
       } else {

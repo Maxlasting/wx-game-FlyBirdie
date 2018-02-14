@@ -1,4 +1,5 @@
 import Sprite from '../base/Sprite.js'
+import DataStore from '../base/DataStroe.js'
 
 export default class Birds extends Sprite {
   constructor() {
@@ -25,8 +26,8 @@ export default class Birds extends Sprite {
     this.clippingWidth = [34, 34, 34]
     this.clippingHeight = [24, 24, 24]
     
-    this.birdX = window.innerWidth / 4
-    this.birdY = window.innerHeight / 2
+    this.birdX = DataStore.getInstance().canvas.width / 4
+    this.birdY = DataStore.getInstance().canvas.height / 2
     this.birdsX = [this.birdX, this.birdX, this.birdX]
     this.birdsY = [this.birdY, this.birdY, this.birdY]
     

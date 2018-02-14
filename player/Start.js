@@ -1,4 +1,5 @@
 import Sprite from '../base/Sprite.js'
+import DataStore from '../base/DataStroe.js'
 
 export default class Start extends Sprite {
   constructor() {
@@ -9,8 +10,8 @@ export default class Start extends Sprite {
       srcY: 0,
       srcW: img.width,
       srcH: img.height,
-      x: (window.innerWidth - img.width) / 2,
-      y: (window.innerHeight - img.height) / 2.5,
+      x: (DataStore.getInstance().canvas.width - img.width) / 2,
+      y: (DataStore.getInstance().canvas.height - img.height) / 2.5,
       width: img.width,
       height: img.height
     })

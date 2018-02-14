@@ -2,7 +2,7 @@
  * 铅笔基类
  */
 import Sprite from '../base/Sprite.js'
-import Director from '../Director.js'
+import DataStore from '../base/DataStroe.js'
 
 export default class Pencil extends Sprite {
   constructor (img, top) {
@@ -12,16 +12,17 @@ export default class Pencil extends Sprite {
       srcY: 0,
       srcW: img.width,
       srcH: img.height,
-      x: window.innerWidth,
+      x: DataStore.getInstance().canvas.width,
       y: 0,
       width: img.width,
       height: img.height
     })
     this.top = top
+    this.speed = 2
   }
   
   draw() {
-    this.x -= Director.getInstance().speed
+    this.x -= this.speed
     super.draw({
       img: this.img,
       srcX: 0,

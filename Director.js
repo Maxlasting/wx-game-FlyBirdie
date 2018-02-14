@@ -5,21 +5,18 @@ import DownPencil from './runtime/DownPencil.js'
 export default class Director {
   constructor() {
     this.dataStore = DataStore.getInstance()
-    this.speed = 2
+    // this.speed = 2
   }
   
   createPencil() {
-    const minTop = window.innerHeight / 8
-    const maxTop = window.innerHeight / 2
+    const minTop = DataStore.getInstance().canvas.height / 8
+    const maxTop = DataStore.getInstance().canvas.height / 2
     const top = Math.random() * (maxTop - minTop) + minTop
     this.dataStore.get('pencils').push(new UpPencil(top))
     this.dataStore.get('pencils').push(new DownPencil(top))
   }
   
   birdsEvent() {
-    // for (let i=0; i<3; i++) {
-    //   this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i]
-    // }
     this.dataStore.get('birds').y = this.dataStore.get('birds').birdY
     this.dataStore.get('birds').time = 0
   }
@@ -60,6 +57,11 @@ export default class Director {
     const Score = this.dataStore.get('score')
     
     if (birds.birdX > pencils[0].x + pencils[0].width && Score.addable) {
+      wx.vibrateShort({
+        success() {
+          console.log('ok')
+        }
+      })
       Score.score ++
       Score.addable = false
     }
@@ -72,6 +74,7 @@ export default class Director {
       this.dataStore.get('startButton').draw()
       cancelAnimationFrame(this.dataStore.get('timer'))
       this.dataStore.destroy()
+      wx.triggerGC()
       return
     }
     
@@ -85,7 +88,7 @@ export default class Director {
       this.dataStore.get('score').addable = true
     }
     
-    if (pencils[0].x <= (window.innerWidth - pencils[0].width) / 2 && pencils.length === 2) {
+    if (pencils[0].x <= (DataStore.getInstance().canvas.width - pencils[0].width) / 2 && pencils.length === 2) {
       this.createPencil()
     }
     

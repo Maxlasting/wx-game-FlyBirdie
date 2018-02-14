@@ -1,5 +1,6 @@
 import Pencil from './Pencil.js'
 import Sprite from '../base/Sprite.js'
+import DataStore from '../base/DataStroe.js'
 
 export default class DownPencil extends Pencil {
   constructor(top) {
@@ -8,7 +9,7 @@ export default class DownPencil extends Pencil {
   }
   
   draw() {
-    const gap = window.innerHeight / 5
+    const gap = DataStore.getInstance().canvas.height / 5
     this.y = this.top + gap
     super.draw()
   }
